@@ -33,14 +33,14 @@ namespace SalonAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //var builder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("DefaultConnection"));
-            //builder.UserID = Configuration["DbUser"];
-            //builder.Password = Configuration["DbPassword"];
-            //var connection = builder.ConnectionString;
-            //services.AddDbContext<SalonDBContext>(options => options.UseSqlServer(connection));
+            var builder = new SqlConnectionStringBuilder(Configuration.GetConnectionString("DefaultConnection"));
+            builder.UserID = Configuration["DbUser"];
+            builder.Password = Configuration["DbPassword"];
+            var connection = builder.ConnectionString;
+            services.AddDbContext<SalonDBContext>(options => options.UseSqlServer(connection));
 
-            services.AddDbContext<SalonDBContext>(
-               options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<SalonDBContext>(
+            //   options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             //to add xml and json format for response
             services.AddMvc(options =>

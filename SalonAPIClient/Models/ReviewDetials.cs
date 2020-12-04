@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace SalonAPIClient.Models
 {
-    public class ReviewResource
+    public class ReviewDetials
     {
         public int Id { get; set; }
         public double Rating { get; set; }
         public string Description { get; set; }
-       // public SalonDTO Salon { get; set; }
+        [System.Text.Json.Serialization.JsonIgnore]
+        public SalonDTO Salon { get; set; }
     }
 }

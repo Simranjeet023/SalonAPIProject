@@ -51,7 +51,19 @@ namespace SalonAPI.Controllers
         }
 
         // GET: api/Salons
-        [HttpGet]
+        //[HttpGet]
+        //[ProducesResponseType(typeof(IEnumerable<SalonDTO>), 200)]
+        //public async Task<IEnumerable<SalonDTO>> ListAsync()
+        //{
+        //    var salons = await _salonService.ListAsync();
+
+        //    var resources = _mapper.Map<IEnumerable<Salon>, IEnumerable<SalonDTO>>(salons);
+
+        //    return resources;
+        //}
+
+        // GET: api/Salons
+        [HttpGet("Salon.{format}"), FormatFilter]
         [ProducesResponseType(typeof(IEnumerable<SalonDTO>), 200)]
         public async Task<IEnumerable<SalonDTO>> ListAsync()
         {
@@ -65,7 +77,7 @@ namespace SalonAPI.Controllers
         // GET: api/Salons/5
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Salon), 200)]
-        public async Task<ActionResult<SalonDTO>> GetCategory(int id)
+        public async Task<ActionResult<SalonDTO>> GetSalon(int id)
         {
 
             var salon = await _salonService.GetSalonAsync(id);
@@ -82,7 +94,7 @@ namespace SalonAPI.Controllers
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(SalonDTO), 200)]
-        public async Task<IActionResult> PutCategory(int id, [FromBody] SaveSalonDTO resource)
+        public async Task<IActionResult> PutSalon(int id, [FromBody] SaveSalonDTO resource)
         {
             var salon = _mapper.Map<SaveSalonDTO, Salon>(resource);
             var result = await _salonService.UpdateAsync(id, salon);
@@ -101,7 +113,7 @@ namespace SalonAPI.Controllers
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         [ProducesResponseType(typeof(SalonDTO), 201)]
-        public async Task<IActionResult> PostCategory([FromBody] SaveSalonDTO resource)
+        public async Task<IActionResult> PostSalon([FromBody] SaveSalonDTO resource)
         {
             var salon = _mapper.Map<SaveSalonDTO, Salon>(resource);
             var result = await _salonService.SaveAsync(salon);

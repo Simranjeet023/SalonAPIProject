@@ -16,7 +16,6 @@ namespace SalonAPIClient.Controllers
 {
     public class SalonsController : Controller
     {
-        //public string BaseUrl = "http://tchaw-eval-prod.apigee.net/salonapiproxy/api/";
 
         ServerApi _api = new ServerApi();
         // GET: SalonController
@@ -35,9 +34,9 @@ namespace SalonAPIClient.Controllers
 
                 if (res.IsSuccessStatusCode)
                 {
-                    var categoryResponse = res.Content.ReadAsStringAsync().Result;
+                    var salonResponse = res.Content.ReadAsStringAsync().Result;
                     //Deserializing the response recieved from web api
-                    salons = JsonConvert.DeserializeObject<List<Salon>>(categoryResponse);
+                    salons = JsonConvert.DeserializeObject<List<Salon>>(salonResponse);
                 }
                 return View(salons);
             }
@@ -45,7 +44,7 @@ namespace SalonAPIClient.Controllers
 
         public async Task<ActionResult> Details(int id)
         {
-            Salon category = new Salon();
+            Salon salon = new Salon();
             using (HttpClient client = _api.Initial())
             {
                 //client.BaseAddress = new Uri(BaseUrl);
@@ -58,12 +57,12 @@ namespace SalonAPIClient.Controllers
 
                 if (res.IsSuccessStatusCode)
                 {
-                    var categoryResponse = res.Content.ReadAsStringAsync().Result;
+                    var salonResponse = res.Content.ReadAsStringAsync().Result;
                     //Deserializing the response recieved from web api
-                    category = JsonConvert.DeserializeObject<Salon>(categoryResponse);
+                    salon = JsonConvert.DeserializeObject<Salon>(salonResponse);
 
                 }
-                return View(category);
+                return View(salon);
             }
         }
 
@@ -76,7 +75,7 @@ namespace SalonAPIClient.Controllers
         // POST: SalonController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Salon category)
+        public async Task<ActionResult> Create(Salon salon)
         {
             try
             {
@@ -88,7 +87,7 @@ namespace SalonAPIClient.Controllers
                     client.DefaultRequestHeaders.Add("apikey", "O0CYGHBtqhHRruBKAQa38ARUCQIcSsHM");
 
                     //Sending Request tot get all the salons
-                    HttpResponseMessage res = await client.PostAsJsonAsync("salons", category);
+                    HttpResponseMessage res = await client.PostAsJsonAsync("salons", salon);
 
                     if (res.IsSuccessStatusCode)
                     {
@@ -118,11 +117,11 @@ namespace SalonAPIClient.Controllers
 
                 //Sending Request tot get all the salons
                 HttpResponseMessage res = await client.GetAsync("salons/" + id);
-                Salon category = res.Content.ReadAsAsync<Salon>().Result;
+                Salon salon = res.Content.ReadAsAsync<Salon>().Result;
 
                 if (res.IsSuccessStatusCode)
                 {
-                    return View(category);
+                    return View(salon);
                 }
                 else
                 {
@@ -136,7 +135,7 @@ namespace SalonAPIClient.Controllers
         // POST: SalonController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Salon category)
+        public async Task<ActionResult> Edit(Salon salon)
         {
             try
             {
@@ -148,7 +147,7 @@ namespace SalonAPIClient.Controllers
                     client.DefaultRequestHeaders.Add("apikey", "O0CYGHBtqhHRruBKAQa38ARUCQIcSsHM");
 
                     //Sending Request tot get all the salons
-                    HttpResponseMessage res = await client.PutAsJsonAsync("salons/" + category.Id, category);
+                    HttpResponseMessage res = await client.PutAsJsonAsync("salons/" + salon.Id, salon);
 
                     if (res.IsSuccessStatusCode)
                     {
@@ -180,7 +179,7 @@ namespace SalonAPIClient.Controllers
 
                     //Sending Request tot get all the salons
                     HttpResponseMessage res = await client.DeleteAsync("salons/" + id);
-                    Salon category = res.Content.ReadAsAsync<Salon>().Result;
+                    Salon salon = res.Content.ReadAsAsync<Salon>().Result;
 
                     if (res.IsSuccessStatusCode)
                     {

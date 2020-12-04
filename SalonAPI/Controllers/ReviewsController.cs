@@ -50,7 +50,17 @@ namespace SalonAPI.Controllers
         }
 
         // GET: api/Reviews
-        [HttpGet]
+        //[HttpGet]
+        //public async Task<IEnumerable<ReviewDTO>> ListAsync()
+        //{
+        //    var queryResult = await _reviewService.ListAsync();
+
+        //    var resources = _mapper.Map<IEnumerable<ReviewDTO>>(queryResult);
+        //    return resources;
+        //}
+
+        // GET: api/Reviews
+        [HttpGet("Reviews.{format}"), FormatFilter]
         public async Task<IEnumerable<ReviewDTO>> ListAsync()
         {
             var queryResult = await _reviewService.ListAsync();
@@ -58,7 +68,6 @@ namespace SalonAPI.Controllers
             var resources = _mapper.Map<IEnumerable<ReviewDTO>>(queryResult);
             return resources;
         }
-
 
         // GET: api/Reviews/5
         [HttpGet("{id}")]

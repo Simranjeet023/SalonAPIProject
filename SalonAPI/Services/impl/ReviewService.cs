@@ -40,11 +40,6 @@ namespace SalonAPI.Services.impl
         {
             try
             {
-                /*
-                 Notice here we have to check if the salon ID is valid before adding the review, to avoid errors.
-                 You can create a method into the SalonService class to return the salon and inject the service here if you prefer, but 
-                 it doesn't matter given the API scope.
-                */
                 var existingSalon = await _salonRepository.FindByIdAsync(review.SalonId);
                 if (existingSalon == null)
                     return new ReviewResponse("Invalid salon.");
@@ -110,19 +105,6 @@ namespace SalonAPI.Services.impl
                 return new ReviewResponse($"An error occurred when deleting the review: {ex.Message}");
             }
         }
-
-        //private string GetCacheKeyForReviewsQuery(ReviewsQuery query)
-        //{
-        //    string key = CacheKeys.ReviewsList.ToString();
-
-        //    if (query.SalonId.HasValue && query.SalonId > 0)
-        //    {
-        //        key = string.Concat(key, "_", query.SalonId.Value);
-        //    }
-
-        //    key = string.Concat(key, "_", query.Page, "_", query.ReviewsPerPage);
-        //    return key;
-        //}
 
         public async Task<ReviewResponse> GetReviewAsync(int id)
         {

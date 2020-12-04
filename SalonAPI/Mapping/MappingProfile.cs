@@ -17,10 +17,10 @@ namespace SalonAPI.Mapping
             CreateMap<Salon, SalonDTO>();
 
             CreateMap<SaveReview, Review>();
-            CreateMap<ReviewsQueryResource, ReviewsQuery>();
-            CreateMap<ReviewsQuery, ReviewsQueryResource>();
             CreateMap<Review, ReviewDTO>();
-            CreateMap<QueryResult<Review>, QueryResultResource<ReviewDTO>>();
+
+            CreateMap<ReviewDTO, Salon>();
+
         }
     }
 }
